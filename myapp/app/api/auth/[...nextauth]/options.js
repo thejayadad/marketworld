@@ -5,8 +5,11 @@ export const options = {
         GoogleProvider({
             profile(profile) {
               console.log("Profile Google: ", profile);
+              let userRole = "GitHub User";
+              if (profile?.email == "jaydunb12@gmail.com") {
+                userRole = "admin";
+              }
       
-              let userRole = "Google User";
               return {
                 ...profile,
                 id: profile.sub,
