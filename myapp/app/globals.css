@@ -6,3 +6,9 @@
 body{
   overflow-x: hidden;
 }
+
+@layer base{
+  button{
+    @apply px-3 py-2 border bg-transparent 
+  }
+}
