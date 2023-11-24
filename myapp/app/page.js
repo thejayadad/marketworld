@@ -3,8 +3,9 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <main className='bg-blue-300'>
+    <main className=''>
       <Hero />
+      <h2 className='text-center mt-8 mb-8 text-2xl md:text-4xl lg:text-6xl font-bold'>Popular Items</h2>
     </main>
   )
 }

@@ -6,7 +6,7 @@ import {options} from "../../app/api/auth/[...nextauth]/options"
 const Navbar = async () => {
   const session = await getServerSession(options)
   return (
-    <header className='px-4 py-12'>
+    <header className='px-4 py-12 border-b border-primary'>
         <div className='flex justify-between max-w-screen-xl mx-auto'>
           <Link href={'/'}>OceanHarbor</Link>
           <div className='flex gap-4'>
