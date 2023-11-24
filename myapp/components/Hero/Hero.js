@@ -66,6 +66,8 @@ const HeroSection = () => {
             OceanHarbor Seafoods
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl mb-6">Fresh From the Ocean to Your Plate</p>
+          <button className='px-12 py-6 md:px-24 md:py-6 hover:bg-primary text-secondary'>See More</button>
+
         </motion.div>
       </div>
     </div>
