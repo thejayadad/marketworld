@@ -1,30 +1,58 @@
 'use client'
 import { motion, useAnimation } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const HeroSection = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [
+    'https://images.pexels.com/photos/4871119/pexels-photo-4871119.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/1064136/pexels-photo-1064136.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    'https://images.pexels.com/photos/3296392/pexels-photo-3296392.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+ ];
+
   const controls = useAnimation();
 
   const variants = {
-    initial: { opacity: 0, y: -100 },
-    animate: { opacity: 1, y: 0, transition: { duration: 1 } },
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 1 } },
   };
 
   const imageVariants = {
-    initial: { opacity: 0, scale: 1.2 },
-    animate: { opacity: 1, scale: 1, transition: { duration: 1, delay: 0.5 } },
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 1 } },
   };
+
+  const handleNextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % images.length;
+    setCurrentImageIndex(nextIndex);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      controls.start('animate');
+      handleNextImage();
+    }, 5000); 
+
+    return () => clearInterval(intervalId);
+  }, [currentImageIndex]);
 
   return (
     <div className="relative h-screen overflow-hidden">
-      <div
-        className="absolute inset-0 z-0 px-6"
-        style={{
-          backgroundImage: 'url("/hero2.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(70%)', 
-        }}
-      />
+      {images.map((image, index) => (
+        <motion.div
+          key={index}
+          initial="initial"
+          animate={index === currentImageIndex ? 'animate' : 'initial'}
+          variants={imageVariants}
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            filter: 'brightness(70%)',
+          }}
+        />
+      ))}
 
       <div className="absolute inset-0 flex items-center justify-center z-10">
         <motion.div
@@ -32,31 +60,14 @@ const HeroSection = () => {
           animate="animate"
           variants={variants}
           onAnimationStart={() => controls.start('animate')}
-          className="text-black text-center"
+          className="text-white text-center"
         >
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-4">
-            Your Hero Text
+            OceanHarbor Seafoods
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-6">
-            Subtitle or catchy phrase
-          </p>
+          <p className="text-lg md:text-xl lg:text-2xl mb-6">Fresh From the Ocean to Your Plate</p>
         </motion.div>
       </div>
-
-      {/* Image Animation */}
-      <motion.div
-        initial="initial"
-        animate="animate"
-        variants={imageVariants}
-        onAnimationStart={() => controls.start('animate')}
-        className="absolute inset-0 z-5"
-      >
-        <img
-          src="/path/to/your/image.jpg"
-          alt="Background"
-          className="w-full h-full object-cover opacity-0"
-        />
-      </motion.div>
     </div>
   );
 };
