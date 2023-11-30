@@ -10,7 +10,7 @@ export const options = {
         GoogleProvider({
             profile(profile) {
               console.log("Profile Google: ", profile);
-              let userRole = "GitHub User";
+              let userRole = "Google User";
               if (profile?.email == "jaydunb12@gmail.com") {
                 userRole = "admin";
               }
